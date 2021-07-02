@@ -1,8 +1,10 @@
 const Discord = require("discord.js")
 const dotenv = require("dotenv");
-const { prefix, embed } = require('../config.json');
 
+const { prefix, embed } = require('../config.json');
 const { titles, content, error } = require('../lines.json');
+
+const embeds = require('../embeds.js');
 
 dotenv.config();
 
@@ -28,7 +30,7 @@ function handleCooldown(msg, client, command) {
 
     if (now < expirationTime) {
       const timeLeft = (expirationTime - now) / 1000;
-      return msg.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`);
+      return embeds.common(":warning: Cooldown!", `please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${command.name}\` command.`, msg.channel);
     }
   }
 
@@ -53,11 +55,7 @@ module.exports = {
       command.execute(msg, args);
     } catch (consoleError) {
       console.error(consoleError);
-      const errorEmbed = new Discord.MessageEmbed()
-                                    .setColor(embed)
-                                    .setTitle(titles.permaError)
-                                    .setDescription("An administrator-level error has occured! Please contact the developer for help.");
-      msg.channel.send(errorEmbed);
+      return embeds.error(error.administrative, msg.channel);
     }
   }
 }

@@ -1,13 +1,15 @@
 const Discord = require('discord.js');
 
 const { prefix, embed } = require('../config.json');
-const { titles } = require('../lines.json');
+const { titles, error } = require('../lines.json');
+
+const embeds = require('../embeds.js');
 
 module.exports = {
   name: 'help',
   description: 'Lists all commands and their descriptions',
   aliases: ['commands'],
-  usage: '[command name]',
+  usage: `\`${prefix} help (optional: command name)\``,
   cooldown: 3,
   execute(msg, args) {
     const data  = [];
@@ -28,10 +30,7 @@ module.exports = {
         .then()
         .catch(error => {
           console.error(`Could not send message to ${msg.author.tag}.\n`, error);
-          const errorEmbed = new Discord.MessageEmbed().setColor(embed)
-                                                       .setTitle(titles.error)
-                                                       .setDescription("Could not send help message!");
-          msg.channel.send(errorEmbed);
+          return embeds.error(error.helpMsgFailed, msg.channel);
         })
     }
 
@@ -39,12 +38,7 @@ module.exports = {
     const command = commands.get(name) || commands.find(c => c.aliases && c.aliases.includes(name));
 
     // if an invalid command is given as an argument
-    if(!command) {
-      const errorEmbed = new Discord.MessageEmbed().setColor(embed)
-                                                   .setTitle(titles.error)
-                                                   .setDescription("That's not a valid command! Please give a valid command.")
-      return msg.channel.send(errorEmbed);
-    }
+    if(!command) return embeds.error(error.helpInvalidCommand, msg.channel);
 
     const detailedEmbed = new Discord.MessageEmbed()
                                      .setColor(embed)

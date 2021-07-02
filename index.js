@@ -4,6 +4,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 
 const { prefix, embed } = require('./config.json');
 const { content, error, titles } = require('./lines.json');
+const embeds = require('./embeds.js');
 
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -64,7 +65,7 @@ const intervals = {
   HOURLY: 3600000,
   DAILY: 86400000,
   WEEKLY: 604800000,
-  TEST: 60000
+  TEST: 6000
 };
 
 function sendReminder(duration) {
@@ -84,14 +85,12 @@ function sendReminder(duration) {
                   }
 
                   let quotesArray = quotes.split('%');
+                  quotesArray = quotesArray.filter(quote => quote !== '\n');
                   const randomQuoteIndex = Math.floor(Math.random() * quotesArray.length);
                   const randomQuote = quotesArray[randomQuoteIndex];
-                  const genEmbed = new Discord.MessageEmbed()
-                                           .setColor(embed)
-                                           .setTitle("Here is your reminder:")
-                                           .setDescription(randomQuote);
+
+                  embeds.common("Here is your reminder:", randomQuote, guild.channels.cache.get(server.message_channel));
                 });
-                guild.systemChannel.send(genEmbed);
               })
               .catch(error => console.error(error));
       });
