@@ -5,3 +5,4 @@ content
 *.sqlite
 embeds.js
 commands/reload.js
+commands/invite.js
