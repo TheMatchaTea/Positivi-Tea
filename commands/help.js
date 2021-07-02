@@ -23,7 +23,9 @@ module.exports = {
                               .setDescription(`(You can send \`${prefix} help [command name]\` to get info on a specific command)`);
 
       for (const cmd of commands.values()) {
-        helpEmbed.addField(`\`${cmd.name}\``, cmd.description);
+        if (cmd.name !== "reload") {
+          helpEmbed.addField(`\`${cmd.name}\``, cmd.description);
+        }
       }
 
       return (msg.channel.send(helpEmbed))
@@ -44,8 +46,8 @@ module.exports = {
                                      .setColor(embed)
                                      .setTitle(`Positivi-Tea: Help >> ${command.name}`)
 
-    if (command.usage) detailedEmbed.addField("Usage", `\`${prefix} ${command.name} ${command.usage}\``, true);
-    if (command.aliases) detailedEmbed.addField("Aliases", command.aliases.join(', '), true);
+    if (command.usage) detailedEmbed.addField("Usage", `\`${command.usage}\``);
+    if (command.aliases) detailedEmbed.addField("Aliases", command.aliases.join(', '));
     if (command.description) detailedEmbed.setDescription(command.description);
 
     detailedEmbed.addField("Cooldown", `${command.cooldown || 3} second(s)`);

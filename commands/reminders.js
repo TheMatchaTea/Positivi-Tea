@@ -21,7 +21,7 @@ module.exports = {
   name: "reminders",
   aliases: ["remind"],
   description: "Set positive quotes to be sent at an interval.",
-  usage: `\`${prefix} ${usage.reminders[0]}, ${prefix} ${usage.reminders[1]}, ${prefix} ${usage.reminders[2]}, ${prefix} ${usage.reminders[3]}\``,
+  usage: `${prefix} ${usage.reminders[0]}\n${prefix} ${usage.reminders[1]}\n${prefix} ${usage.reminders[2]}\n${prefix} ${usage.reminders[3]}`,
   execute(msg, args, client) {
     if (!msg.guild.member(msg.author).hasPermission("MANAGE_GUILD") && msg.author.id != process.env.MY_ID) {
       // if the user does not have permission to use this command
