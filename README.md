@@ -8,7 +8,7 @@ Positivi-Tea can send automated positive messages to your Discord server at eith
 ### Upcoming Features
 [x] Set the `reminder` to only be used by people with the `Manage server` permission
 
-[] Choose which channel automated reminders are sent
+[x] Choose which channel automated reminders are sent
 
 [] Send pretty images along with quotes
 
