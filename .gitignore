@@ -4,3 +4,4 @@ node_modules
 content
 *.sqlite
 embeds.js
+commands/reload.js

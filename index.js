@@ -33,6 +33,9 @@ const Servers = sqlize.define("Servers", {
     type: DataTypes.STRING,
     allowNull: false,
     defaultValue: "NEVER"
+  },
+  ping_role: {
+    type: DataTypes.STRING
   }
 })
 
@@ -84,12 +87,21 @@ function sendReminder(duration) {
                     throw err;
                   }
 
-                  let quotesArray = quotes.split('%');
-                  quotesArray = quotesArray.filter(quote => quote !== '\n');
-                  const randomQuoteIndex = Math.floor(Math.random() * quotesArray.length);
-                  const randomQuote = quotesArray[randomQuoteIndex];
+                  if (guild.me.permissionsIn(guild.channels.cache.get(server.message_channel)).has("SEND_MESSAGES")) {
+                    let quotesArray = quotes.split('%');
+                    quotesArray = quotesArray.filter(quote => quote !== '\n');
+                    const randomQuoteIndex = Math.floor(Math.random() * quotesArray.length);
+                    const randomQuote = quotesArray[randomQuoteIndex];
 
-                  embeds.common("Here is your reminder:", randomQuote, guild.channels.cache.get(server.message_channel));
+                    let rolePing = "";
+                    if (server.ping_role) rolePing += `${guild.roles.cache.get(server.ping_role).toString()}, `;
+
+                    embeds.common("Here is your reminder:", `${rolePing}${randomQuote}`, guild.channels.cache.get(server.message_channel));
+                  }
+                  else {
+                    let availableChannels = guild.channels.filter(channel => channel.permissionsFor(guild.me).has("SEND_MESSAGES"));
+                    embeds.error(`I don't have access to send messages in ${guild.channels.cache.get(server.message_channel).toString()}. Please resolve this so I can send reminders :sparkling_heart:`, availableChannels[0]);
+                  }
                 });
               })
               .catch(error => console.error(error));
