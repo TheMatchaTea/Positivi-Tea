@@ -13,6 +13,16 @@ module.exports = {
   description: "Set positive quotes to be sent at an interval.",
   usage: usage.reminders,
   execute(msg, args, client) {
+    if (!msg.guild.member(msg.author).hasPermission("MANAGE_GUILD") && msg.author.id != process.env.MY_ID) {
+      // if the user does not have permission to use this command
+      const errorEmbed = new Discord.MessageEmbed()
+                                    .setColor(embed)
+                                    .setTitle(titles.error)
+                                    .setDescription(`${error.permissionNotGranted[0]} \`MANAGE SERVER\` ${error.permissionNotGranted[1]}`);
+
+      return msg.channel.send(errorEmbed);
+
+    }
     servers.Table.findOne({ where: { server_id: `${msg.guild.id}` } }).then(server => {
       // if we have no arguments show configuring messages
       if (args.length < 1) {
