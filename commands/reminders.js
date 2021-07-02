@@ -47,7 +47,7 @@ module.exports = {
           case "channel":
             return embeds.common(titles.remindersConfig, `Reminders are currently being sent to ${msg.guild.channels.cache.get(server.message_channel).toString()}. Use \`${prefix} ${usage.reminders[2]}\` to configure the channel reminders are sent to.`, msg.channel);
             break;
-          case "role":
+          case "ping":
             const roleMsg = `Currently, ${!server.ping_role ? "no one" : msg.guild.roles.cache.get(server.ping_role).toString()} is being pinged for reminders. Use \`${prefix} ${usage.reminders[3]}\` to configure the role to ping. (Role must have \`Allow anyone to @mention this role\` on to be pinged.)`;
             return embeds.common(titles.remindersConfig, roleMsg, msg.channel);
             break;
@@ -93,7 +93,7 @@ module.exports = {
               return embeds.error("Channel could not be updated.", msg.channel);
             })
             break;
-          case "role":
+          case "ping":
             // choose a role to ping for reminders
             const roleMentions = msg.mentions.roles;
             if (roleMentions.size > 1) return embeds.error(error.providedRoleError, msg.channel);
