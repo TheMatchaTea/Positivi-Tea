@@ -102,7 +102,7 @@ module.exports = {
               { ping_role: roleKey.toString() },
               { where: { server_id: msg.guild.id } }
             ).then(updatedRole => {
-              return embeds.common(titles.success, `The following role will be pinged for reminders: ${msg.guild.roles.cache.get(roleKey).toString()}`);
+              return embeds.common(titles.success, `The following role will be pinged for reminders: ${msg.guild.roles.cache.get(roleKey).toString()}`, msg.channel);
             }).catch(err => {
               console.error(err);
               return embeds.error("Role could not be updated.", msg.channel);
