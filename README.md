@@ -5,6 +5,8 @@ Positivi-Tea can send automated positive messages to your Discord server at eith
 
 [Invite Positivi-Tea to your server!](https://discord.com/oauth2/authorize?client_id=860220065906294824&scope=bot&permissions=445504)
 
+Positivi-Tea's icon is drawn by [@swampyreeds](https://twitter.com/swampyreeds)
+
 ### Upcoming Features
 [x] Set the `reminder` to only be used by people with the `Manage server` permission
 
