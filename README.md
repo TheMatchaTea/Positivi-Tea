@@ -15,3 +15,5 @@ Positivi-Tea's icon is drawn by [@swampyreeds](https://twitter.com/swampyreeds)
 [] Send pretty images along with quotes
 
 [] Add more positive quotes, potentially pull from an API
+
+If you enjoy this bot, consider [donating to my Ko-fi](https://ko-fi.com/teapuddles) to help bring this bot and all future projects onto more stable and reliable servers!
